@@ -1,0 +1,11 @@
+XTerm*Background: #121212
+XTerm*Foreground: #efefef
+XTerm*faceName: DejaVu Sans Mono
+XTerm*faceSize: 10
+XTerm*eightBitInput: false
+XTerm*rightScrollBar: false
+XTerm*ScrollBar: false
+XTerm*locale: true
+XTerm*metaSendsEscape: true
+Xterm*saveLines: 16384
+XTerm*scaleHeight: 1.02

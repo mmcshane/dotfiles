@@ -1,0 +1,12 @@
+Bundle 'JazzCore/ctrlp-cmatcher'
+
+let g:ctrlp_match_func = {'match' : 'matcher#cmatch' }
+
+let g:ctrlp_user_command = {
+    \ 'types': {
+        \ 1: ['svtsetup', 'cd %s && git ls-files -co --exclude-standard -- src buildtools/version.yaml'],
+        \ 2: ['.git', 'cd %s && git ls-files -co --exclude-standard'],
+        \ 3: ['.hg', 'hg --cwd %s locate -I .'],
+        \ },
+    \ 'fallback': 'find %s -type f'
+    \ }

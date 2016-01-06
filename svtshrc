@@ -1,0 +1,40 @@
+# Shell configuration for the SVT root shell
+#echo ".svtshrc"
+#echo "SVTHOME=${SVTHOME}"
+#echo "SVTBUILD=${SVTBUILD}"
+#echo "SVTVARIANT=${SVTVARIANT}"
+
+. ${SVTHOME}/svtsetup
+
+export PS1='\h($SVTVARIANT):\w\$ '
+#export SVTBUILDSTATUS=0
+#alias genbuild="genbuild ${SVTVARIANT}"
+
+mkdeb() {
+    "${SVTHOME}/src/os/make_svtfs_deb.pl"
+}
+
+if [ "${SVTVARIANT}" = "coverage" ]; then
+    # This stuff normally only happens during a genbuild, but sometimes I
+    # don't want to do another genbuild!
+    export COVFILE="${SVTBUILD}/simplivt.cov"
+    PATH="/usr/local/bullseye/bin:${PATH}"
+    cov01 -1
+    cov01 -s
+fi
+
+
+dotest() {
+    (cd "$SVTBUILD" &&
+        make -j4 "$1" &&
+        "test/$1" --log_level=message)
+}
+
+dbgtest() {
+    (bd &&
+     make -j4 "$1" &&
+     gdb --args "test/$1")
+}
+
+
+echo "$HOME/core.%e.%p.%h.%t"> /proc/sys/kernel/core_pattern
